@@ -1,5 +1,7 @@
 package com.example.demo.Address;
 
+import com.example.demo.Place.Place;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,21 +17,25 @@ public class Address {
             strategy = GenerationType.SEQUENCE,
             generator = "address_sequence"
     )
-    private Long id;
+    private Long address_id;
     private double latitude;
     private double longitude;
     private String street;
     private String city;
-    private int zipcode;
+    private String zipcode;
     private String country;
+
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Place place;
+
 
 
     public Long getId() {
-        return id;
+        return Address.this.address_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.address_id = Address.this.address_id;
     }
 
     public double getLatitude() {
@@ -64,11 +70,11 @@ public class Address {
         this.city = city;
     }
 
-    public int getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
@@ -82,8 +88,8 @@ public class Address {
 //empty constructor
     public Address() {}
 //constructor with id
-    public Address(Long id, double latitude, double longitude, String street, String city, int zipcode, String country) {
-        this.id = id;
+    public Address(Long address_id, double latitude, double longitude, String street, String city, String zipcode, String country) {
+        this.address_id = Address.this.address_id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.street = street;
@@ -92,7 +98,7 @@ public class Address {
         this.country = country;
     }
 //constructor without id: id autoincremented
-    public Address(double latitude, double longitude, String street, String city, int zipcode, String country) {
+    public Address(double latitude, double longitude, String street, String city, String zipcode, String country) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.street = street;
@@ -104,7 +110,7 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
+                "address_id=" + Address.this.address_id +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", street='" + street + '\'' +
@@ -114,4 +120,9 @@ public class Address {
                 '}';
     }
 
+    public String getWilayaCode(){
+        return this.zipcode.substring(0,2);
+    }
 }
+
+

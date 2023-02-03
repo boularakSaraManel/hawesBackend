@@ -17,7 +17,7 @@ public class Address {
             strategy = GenerationType.SEQUENCE,
             generator = "address_sequence"
     )
-    private Long address_id;
+    private Long id;
     private double latitude;
     private double longitude;
     private String street;
@@ -31,11 +31,11 @@ public class Address {
 
 
     public Long getId() {
-        return Address.this.address_id;
+        return Address.this.id;
     }
 
     public void setId(Long id) {
-        this.address_id = Address.this.address_id;
+        this.id = Address.this.id;
     }
 
     public double getLatitude() {
@@ -88,8 +88,8 @@ public class Address {
 //empty constructor
     public Address() {}
 //constructor with id
-    public Address(Long address_id, double latitude, double longitude, String street, String city, String zipcode, String country) {
-        this.address_id = Address.this.address_id;
+    public Address(Long id, double latitude, double longitude, String street, String city, String zipcode, String country) {
+        this.id = Address.this.id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.street = street;
@@ -107,10 +107,18 @@ public class Address {
         this.country = country;
     }
 
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
     @Override
     public String toString() {
         return "Address{" +
-                "address_id=" + Address.this.address_id +
+                "id=" + Address.this.id +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", street='" + street + '\'' +

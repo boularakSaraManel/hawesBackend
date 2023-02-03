@@ -24,22 +24,24 @@ public class PlaceService {
     }
 
     //, Long address_id, Long photo_id deleted from param
-    public void addPlace(Place place) {
-        Long address_id=place.getAddress().getId();
-        Long photo_id=place.getPhoto().getId();
+    public void addPlace(Place place, Long address_id, Long photo_id) {
+        //Long address_id=place.getAddress().getId();
+        //Long photo_id=place.getPhoto().getId();
 
-        Optional<Address> Address = addressRepository.findById(address_id);
+        Optional<Address> address = addressRepository.findById(address_id);
         Optional<Photo> photo= photoRepository.findById(photo_id);
         //test if foreign key tuple for address exists
-        if(!Address.isPresent()){
+        if(!address.isPresent()){
             throw new IllegalStateException("Address with id " +address_id+" does not exist");
         }
+        place.setAddress(address.get()); //optional is like arrayList<T>
         //test if foreign key tuple for photo exists
         if(!photo.isPresent()){
             throw new IllegalStateException("Photo with id " +photo_id+" does not exist");
         }
-
+        place.setPhoto(photo.get());
         placeRepository.save(place);
-
+        address.get().setPlace(place);
+        photo.get().setPlace(place);
     }
 }

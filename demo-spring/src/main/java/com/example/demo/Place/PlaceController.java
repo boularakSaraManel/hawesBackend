@@ -21,8 +21,8 @@ public class PlaceController {
     }
 
     @PostMapping
-    public void addPlace(@RequestBody Place place){
-        placeService.addPlace(place);
+    public void addPlace(@RequestBody Place place, Long addressId, Long photoId){
+        placeService.addPlace(place, addressId,photoId);
     }
 
 }

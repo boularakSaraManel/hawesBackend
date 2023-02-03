@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table (name = "Place")
+@Table
 public class Place {
    @Id
    @SequenceGenerator(
@@ -20,25 +20,21 @@ public class Place {
            strategy = GenerationType.SEQUENCE,
            generator = "place_sequence"
    )
-   private Long place_id;
+   private Long id;
    private String name;
    private String description;
    private LocalDate createdAt;
 
-   @OneToOne(orphanRemoval = true, fetch =FetchType.LAZY)
-   @JoinColumn(name="photo_id")
+   @OneToOne(cascade= CascadeType.ALL,orphanRemoval = true, fetch =FetchType.LAZY)
+   @JoinColumn(name="photoId", referencedColumnName = "id")
    //added auto by spring so i edited it to a simpler approach
    /*@JoinTable(name = "place_photo",
-           joinColumns = @JoinColumn(name = "place_id"),
+           joinColumns = @JoinColumn(name = "id"),
            inverseJoinColumns = @JoinColumn(name = "photo_id"))*/
    private Photo photo;
 
-   @OneToOne(orphanRemoval = true, fetch = FetchType.LAZY)
-   @JoinColumn(name="address_id")
-   //added auto by spring so i edited it to a simpler approach
-   /*@JoinTable(name = "place_address",
-           joinColumns = @JoinColumn(name = "place_place_id"),
-           inverseJoinColumns = @JoinColumn(name = "address_id"))*/
+   @OneToOne(cascade= CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+   @JoinColumn(name = "address_id", referencedColumnName = "id")
    private Address address;
 
    public Address getAddress() {
@@ -60,11 +56,11 @@ public class Place {
 
 
    public Long getId() {
-      return place_id;
+      return id;
    }
 
-   public void setId(Long place_id) {
-      this.place_id = place_id;
+   public void setId(Long id) {
+      this.id = id;
    }
 
    public String getName() {
@@ -94,8 +90,8 @@ public class Place {
    public Place() {
    }
 
-   public Place(Long place_id, String name, String description, LocalDate createdAt, Photo photo) {
-      this.place_id = place_id;
+   public Place(Long id, String name, String description, LocalDate createdAt, Photo photo) {
+      this.id = id;
       this.name = name;
       this.description = description;
       this.createdAt = createdAt;
@@ -112,7 +108,7 @@ public class Place {
    @Override
    public String toString() {
       return "Place{" +
-              "place_id=" + place_id +
+              "id=" + id +
               ", name='" + name + '\'' +
               ", description='" + description + '\'' +
               ", createdAt=" + createdAt +

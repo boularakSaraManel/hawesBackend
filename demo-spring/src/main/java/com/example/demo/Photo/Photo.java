@@ -1,5 +1,6 @@
 package com.example.demo.Photo;
 
+import com.example.demo.Address.Address;
 import com.example.demo.Place.Place;
 
 import javax.persistence.*;
@@ -18,21 +19,21 @@ public class Photo {
            strategy = GenerationType.SEQUENCE,
            generator = "photo_sequence"
    )
-   private Long photo_id;
+   private Long id;
    private Date createdAt;
    private String path;
    private String alternative;
+
 
    @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    private Place place;
 
 
    public Long getId() {
-      return photo_id;
+      return id;
    }
-
-   public void setId(Long photo_id) {
-      this.photo_id = photo_id;
+   public void setId(Long id) {
+      this.id = id;
    }
 
    public Date getCreatedAt() {
@@ -62,8 +63,8 @@ public class Photo {
    public Photo() {
    }
 
-   public Photo(Long photo_id, Date createdAt, String path, String alternative) {
-      this.photo_id = photo_id;
+   public Photo(Long id, Date createdAt, String path, String alternative) {
+      this.id = id;
       this.createdAt = createdAt;
       this.path = path;
       this.alternative = alternative;
@@ -75,10 +76,18 @@ public class Photo {
       this.alternative = alternative;
    }
 
+   public Place getPlace() {
+      return place;
+   }
+
+   public void setPlace(Place place) {
+      this.place = place;
+   }
+
    @Override
    public String toString() {
       return "Photo{" +
-              "photo_id=" + photo_id +
+              "id=" + id +
               ", createdAt=" + createdAt +
               ", path='" + path + '\'' +
               ", alternative='" + alternative + '\'' +

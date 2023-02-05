@@ -8,11 +8,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
+
 @Embeddable
 public class VisitId implements Serializable {
-    @Transient
     private Tourist tourist;
-    @Transient
     private Place place;
 
     public Tourist getTourist() {
